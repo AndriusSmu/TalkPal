@@ -1,0 +1,15 @@
+{
+  "name": "Talkpal",
+  "short_name": "Talkpal",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "microphone_photo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

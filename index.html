@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Talkpal</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts for Neumorphic aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Screen -1: Intro -->
+    <div id="screen-intro" class="screen">
+        <button id="intro-btn" class="landing-btn" style="border: none; box-shadow: none; flex-direction: column; background-color: transparent; gap: 20px; width: 100%; height: 100%; border-radius: 0;">
+            <img src="logo.png" alt="Talkpal Logo" style="width: 250px; height: 250px; object-fit: contain; margin-bottom: 20px;">
+            <div style="font-size: 80px; font-weight: 900; color: #4A90E2; letter-spacing: 2px;">TalkPal</div>
+            <div style="font-size: 32px; color: #757575; font-weight: bold; margin-top: 40px; background-color: #F0F2F5; padding: 16px 32px; border-radius: 30px; box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;">Tap to start 👆</div>
+        </button>
+    </div>
+
+    <!-- Screen 0: Landing -->
+    <div id="screen-landing" class="screen hidden">
+        <button id="caregiver-admin-btn" style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; opacity: 0; background: transparent; border: none; box-shadow: none; z-index: 1000;"></button>
+        <h1 class="kahoot-header" style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 16px; padding: 20px 16px; height: auto;">
+            <img src="logo.png" alt="logo" style="width: 60px; height: 60px; object-fit: contain;">
+            TalkPal
+        </h1>
+        <div class="landing-container">
+            <div id="daily-starter" class="daily-starter"></div>
+            <!-- Replacing background with generic Neumorphic default layout via CSS -->
+            <button id="landing-listen-btn" class="landing-btn" style="background-color: #E6C200; color: #FFFFFF; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Listen 🎧</button>
+            <button id="landing-send-btn" class="landing-btn" style="background-color: #5DADE2; color: #FFFFFF; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Send 🎤</button>
+        </div>
+    </div>
+
+    <!-- Screen 0.5: Listen List -->
+    <div id="screen-listen-list" class="screen hidden" style="overflow-y: auto;">
+        <h1 class="kahoot-header">Received</h1>
+        <div class="contact-grid" id="listen-received-grid" style="flex: unset; height: auto;">
+            <button class="listen-card-btn" data-contact="Sarah" data-emoji="🐰">
+                <div class="contact-emoji">🐰</div>
+                <span>Listen Sarah</span>
+            </button>
+            <button class="listen-card-btn" data-contact="Alex" data-emoji="🐶">
+                <div class="contact-emoji">🐶</div>
+                <span>Listen Alex</span>
+            </button>
+        </div>
+        
+        <div style="width: 100%; border-top: 2px solid #d1d9e6; margin: 24px 0;"></div>
+        <h2 class="kahoot-header" style="font-size: 24px; padding-top: 0;">Saved Messages ⭐</h2>
+        <div id="favorites-grid" class="contact-grid" style="flex: unset; height: auto;">
+            <!-- Rendered by JS -->
+        </div>
+
+        <button class="nav-btn cancel-btn" id="listen-list-cancel-btn">Back 🔙</button>
+    </div>
+
+    <!-- Screen 1: Contacts -->
+    <div id="screen-contacts" class="screen hidden">
+        <h1 class="kahoot-header">Who to?</h1>
+        <div class="contact-grid">
+            <button class="contact-btn" data-contact="Sarah" data-emoji="🐰">
+                <div class="contact-emoji">🐰</div>
+                <span>Sarah</span>
+            </button>
+            <button class="contact-btn" data-contact="Alex" data-emoji="🐶">
+                <div class="contact-emoji">🐶</div>
+                <span>Alex</span>
+            </button>
+            <button class="contact-btn" data-contact="Natalie" data-emoji="🦊">
+                <div class="contact-emoji">🦊</div>
+                <span>Natalie</span>
+            </button>
+            <button class="contact-btn" data-contact="Andrius" data-emoji="🐼">
+                <div class="contact-emoji">🐼</div>
+                <span>Andrius</span>
+            </button>
+            <button class="contact-btn" data-contact="Murat" data-emoji="🐨">
+                <div class="contact-emoji">🐨</div>
+                <span>Murat</span>
+            </button>
+            <button class="contact-btn" data-contact="Karolina" data-emoji="🐷">
+                <div class="contact-emoji">🐷</div>
+                <span>Karolina</span>
+            </button>
+            <button class="contact-btn" data-contact="Kathi" data-emoji="🐸">
+                <div class="contact-emoji">🐸</div>
+                <span>Kathi</span>
+            </button>
+            <button class="contact-btn" data-contact="Tiia" data-emoji="🐵">
+                <div class="contact-emoji">🐵</div>
+                <span>Tiia</span>
+            </button>
+        </div>
+        <button class="nav-btn cancel-btn" id="contacts-cancel-btn">Back 🔙</button>
+    </div>
+
+    <!-- Screen 2: Record -->
+    <div id="screen-record" class="screen hidden">
+        <h1 id="record-header">Tap to Record 🎤</h1>
+        <div class="record-container">
+            <button id="record-btn" class="record-btn">🎤</button>
+        </div>
+        <button class="nav-btn cancel-btn" id="record-cancel-btn">Back 🔙</button>
+    </div>
+
+    <!-- Screen 3: Review -->
+    <div id="screen-review" class="screen hidden">
+        <h1 class="kahoot-header" style="font-size: 24px;">Listen to your message 🎧</h1>
+        <div class="review-container">
+            <audio id="audio-playback" class="hidden"></audio>
+
+            <div class="review-actions-split" style="gap: 24px; padding: 16px;">
+                <button id="send-btn" class="review-btn send-btn">Send 🟢</button>
+                <button id="play-btn" class="review-btn play-btn">Listen ▶️</button>
+            </div>
+        </div>
+        <button id="cancel-btn" class="nav-btn cancel-btn">Cancel ❌</button>
+    </div>
+
+    <!-- Screen 4: Listen -->
+    <div id="screen-listen" class="screen hidden" style="position: relative;">
+        <!-- New Safety Button directly absolute positioned -->
+        <button id="safety-shield-btn" style="position: absolute; top: 16px; right: 16px; font-size: 45px; background: transparent; border: none; box-shadow: none; cursor: pointer; z-index: 50; padding: 12px; filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.4)); transition: all 0.2s ease;">🛡️</button>
+        
+        <h1 id="listen-header" class="kahoot-header" style="font-size: 24px;">Listen</h1>
+        <div class="review-container">
+            <div id="listen-emoji" class="contact-emoji" style="font-size: 80px; width: 140px; height: 140px; display: none; background-color: #F0F2F5; border-radius: 50%; justify-content: center; align-items: center; margin: 0 auto 32px auto; box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;"></div>
+            <button id="listen-play-btn" class="review-btn play-btn" style="width: 250px; height: 250px; border-radius: 50%; font-size: 48px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;">Play ▶️</button>
+
+            <div id="listen-post-actions" class="hidden" style="width: 100%; max-width: 600px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 16px; box-sizing: border-box;">
+                <button id="listen-reply-btn" class="review-btn play-btn" style="min-height: 120px; font-size: 32px; margin: 0;">Reply 🎤</button>
+                <button id="listen-star-btn" class="review-btn" style="background-color: #FFF9C4; color: #F57F17; min-height: 120px; font-size: 32px; margin: 0; box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;">Star ⭐</button>
+                <button id="listen-again-btn" class="review-btn play-btn" style="background-color: #F0F2F5; color: #4A90E2; min-height: 100px; font-size: 24px; margin: 0;">Listen Again 🔁</button>
+                <button id="listen-done-btn" class="review-btn send-btn" style="min-height: 100px; font-size: 32px; margin: 0; width: auto;">Done ✅</button>
+            </div>
+        </div>
+        <button class="nav-btn cancel-btn" id="listen-cancel-btn">Back 🔙</button>
+    </div>
+
+    <!-- Screen Safety Overlay -->
+    <div id="screen-safety-overlay" class="screen hidden" style="z-index: 100; position: absolute; background-color: rgba(240, 242, 245, 0.95); backdrop-filter: blur(5px);">
+        <div class="sent-success-container">
+            <h2 class="kahoot-header" style="background: none; color: #333; box-shadow: none; margin-bottom: 40px; text-transform: none; font-size: 40px; font-weight: 900;">Is this a bad message?</h2>
+            
+            <button id="safety-yes-btn" class="review-btn cancel-btn" style="width: 100%; max-width: 400px; min-height: 120px; font-size: 36px; margin-bottom: 32px;">Yes, hide it 🛡️</button>
+            <button id="safety-no-btn" class="review-btn send-btn" style="width: 100%; max-width: 400px; min-height: 120px; font-size: 36px;">No, keep it ✅</button>
+        </div>
+    </div>
+
+    <!-- Screen Safety Success -->
+    <div id="screen-safety-success" class="screen hidden" style="z-index: 101; position: absolute;">
+        <div class="sent-success-container" style="justify-content: center;">
+            <h2 class="kahoot-header" style="background: none; color: #333; box-shadow: none; font-size: 48px; text-transform: none;">Okay, it is gone now. 🕊️</h2>
+        </div>
+    </div>
+
+    <!-- Screen 5: Stickers -->
+    <div id="screen-stickers" class="screen hidden">
+        <h1 class="kahoot-header" style="font-size: 24px;">How are you feeling?</h1>
+        <div class="stickers-container">
+            <div class="emotions-grid-large">
+                <button class="sticker-btn massive-sticker" data-emotion="Happy">
+                    <div style="font-size: 50px;">😊</div>
+                    <span class="sticker-label">Happy</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Funny">
+                    <div style="font-size: 50px;">🤣</div>
+                    <span class="sticker-label">Funny</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Sad">
+                    <div style="font-size: 50px;">😢</div>
+                    <span class="sticker-label">Sad</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Proud">
+                    <div style="font-size: 50px;">🌟</div>
+                    <span class="sticker-label">Proud</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Angry">
+                    <div style="font-size: 50px;">😡</div>
+                    <span class="sticker-label">Angry</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Scared">
+                    <div style="font-size: 50px;">😨</div>
+                    <span class="sticker-label">Scared</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Tired">
+                    <div style="font-size: 50px;">😴</div>
+                    <span class="sticker-label">Tired</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Excited">
+                    <div style="font-size: 50px;">🤩</div>
+                    <span class="sticker-label">Excited</span>
+                </button>
+                <button class="sticker-btn massive-sticker" data-emotion="Silly">
+                    <div style="font-size: 50px;">😜</div>
+                    <span class="sticker-label">Silly</span>
+                </button>
+            </div>
+            <button id="skip-feeling-btn" class="review-btn play-btn" style="margin-top: 24px; width: 100%; max-width: 600px; min-height: 100px;">Send without feeling ➡️</button>
+        </div>
+    </div>
+
+    <!-- Screen 6: Sent Success & Undo -->
+    <div id="screen-sent-success" class="screen hidden">
+        <div class="sent-success-container">
+            <h2 id="sent-header" class="kahoot-header" style="background: none; color: #333; box-shadow: none;">Sent to <span id="contact-name"></span>!</h2>
+            <div class="checkmark">✅</div>
+            
+            <button id="go-home-btn" class="review-btn send-btn" style="width: 100%; max-width: 400px; min-height: 120px; font-size: 40px; margin-top: 40px;">Go Home 🏠</button>
+            
+            <!-- Remove inline border for Undo and let Neumorphic override it -->
+            <button id="undo-btn" class="review-btn cancel-btn" style="width: 100%; max-width: 300px; min-height: 80px; font-size: 24px; margin-top: 24px; background-color: #F0F2F5; color: #757575;">Undo Message ↩️</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
