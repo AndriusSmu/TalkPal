@@ -73,7 +73,7 @@ h1, h2 {
 /* Neumorphic Soft UI Button Base Layer */
 .landing-btn, .contact-btn, .listen-card-btn, .nav-btn, .review-btn, .massive-sticker, .record-btn {
     border: none !important;
-    box-shadow: 6px 6px 16px #d1d9e6, -4px -4px 10px rgba(255, 255, 255, 0.4);
+    box-shadow: 15px 15px 30px #d1d9e6, -10px -10px 25px rgba(255, 255, 255, 0.6);
     cursor: pointer;
     transition: all 0.2s ease, transform 0.2s ease;
 }
@@ -86,7 +86,7 @@ h1, h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 6px 6px 12px #cfd8dc, -6px -6px 12px #ffffff;
+    box-shadow: 15px 15px 30px #d1d9e6, -10px -10px 25px rgba(255, 255, 255, 0.6);
 }
 
 .landing-btn:active, .contact-btn:active, .listen-card-btn:active, .nav-btn:active, .review-btn:active, .massive-sticker:active {
@@ -97,28 +97,30 @@ h1, h2 {
 /* Contacts Layout */
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px; /* Soft space */
-    padding: 0 16px 16px 16px;
-    flex: 1; 
-    height: 100%; 
-    overflow: auto; /* Fallback */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 20px;
+    flex: 1; /* Fills available vertical space */
+    align-items: center;
+    justify-items: center;
+    padding: 20px;
+    overflow: hidden;
 }
 
 .contact-btn, .listen-card-btn {
+    width: 100%;
+    max-width: 280px; /* Big enough for a whiteboard */
+    aspect-ratio: 1 / 1;
+    border-radius: 50% !important;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px;
     background-color: #F0F2F5;
     color: #333333;
-    border-radius: 50%;
-    padding: 8px;
     outline: none;
-    aspect-ratio: 1/1;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 130px;
 }
 
 /* Unique highlight for Listen cards using color block but soft shadows */
@@ -127,9 +129,19 @@ h1, h2 {
     color: #D84315;
 }
 
+.unhide-btn {
+    background-color: #CFD8DC;
+    color: #455A64;
+    border-radius: 20px;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
 .contact-emoji {
-    font-size: 36px;
-    margin-bottom: 4px;
+    font-size: 80px;
+    margin-bottom: 10px;
     display: block;
     background-color: transparent !important;
     box-shadow: none !important;
@@ -138,18 +150,40 @@ h1, h2 {
 }
 
 .contact-btn span, .listen-card-btn span {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 900;
     text-align: center;
     line-height: 1.2;
     word-wrap: break-word;
     max-width: 90%;
+    color: #1a1a1a; 
+    text-shadow: none;
 }
 
 /* Center Layout Containers */
 #screen-record, #screen-review, #screen-stickers, #screen-listen-list {
     position: relative;
     background-color: #F0F2F5; /* Neumorphic base */
+}
+
+#screen-listen-list {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden !important;
+}
+
+#hidden-messages-section {
+    margin-top: auto;
+    border-top: 2px solid #d1d9e6;
+    background: #eceff1;
+    padding: 10px;
+}
+
+#screen-listen-list .kahoot-header {
+    font-size: 20px;
+    padding: 10px;
+    margin: 0;
 }
 
 .record-container, .review-container {
@@ -209,10 +243,23 @@ h1, h2 {
 .review-actions-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    width: 100%;
-    max-width: 600px;
+    gap: 40px;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+#listen-post-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#listen-post-actions.hidden {
+    display: none !important;
 }
 
 .review-btn {
@@ -225,16 +272,17 @@ h1, h2 {
     margin: 0;
 }
 
-.send-btn, .play-btn {
-    min-height: 120px;
-    border-radius: 32px;
-    font-size: 36px;
+.send-btn, .play-btn, #listen-post-actions button {
+    min-height: 250px;
+    border-radius: 50px;
+    font-size: 50px;
+    font-weight: 900;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    box-shadow: 6px 6px 12px #cfd8dc, -6px -6px 12px #ffffff;
     border: none;
+    box-shadow: 15px 15px 30px #d1d9e6, -10px -10px 25px rgba(255, 255, 255, 0.6) !important;
 }
 
 .send-btn { background-color: #50C878; color: #FFFFFF; }

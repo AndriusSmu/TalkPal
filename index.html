@@ -60,6 +60,11 @@
             <!-- Rendered by JS -->
         </div>
 
+        <details id="hidden-messages-section">
+            <summary class="kahoot-header" style="cursor: pointer; list-style: none;">Hidden Messages 🛡️</summary>
+            <div id="hidden-grid" class="contact-grid" style="margin-top: 12px; height: 30vh; overflow-y: auto;"></div>
+        </details>
+
         <button class="nav-btn cancel-btn" id="listen-list-cancel-btn">Back 🔙</button>
     </div>
 
@@ -118,7 +123,7 @@
         <div class="review-container">
             <audio id="audio-playback" class="hidden"></audio>
 
-            <div class="review-actions-split" style="gap: 24px; padding: 16px;">
+            <div class="review-actions-split" style="padding: 16px;">
                 <button id="send-btn" class="review-btn send-btn">Send 🟢</button>
                 <button id="play-btn" class="review-btn play-btn">Listen ▶️</button>
             </div>
@@ -136,11 +141,11 @@
             <div id="listen-emoji" class="contact-emoji" style="font-size: 80px; width: 140px; height: 140px; display: none; background-color: #F0F2F5; border-radius: 50%; justify-content: center; align-items: center; margin: 0 auto 32px auto; box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;"></div>
             <button id="listen-play-btn" class="review-btn play-btn" style="width: 250px; height: 250px; border-radius: 50%; font-size: 48px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;">Play ▶️</button>
 
-            <div id="listen-post-actions" class="hidden" style="width: 100%; max-width: 600px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 16px; box-sizing: border-box;">
-                <button id="listen-reply-btn" class="review-btn play-btn" style="min-height: 120px; font-size: 32px; margin: 0;">Reply 🎤</button>
-                <button id="listen-star-btn" class="review-btn" style="background-color: #FFF9C4; color: #F57F17; min-height: 120px; font-size: 32px; margin: 0; box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;">Star ⭐</button>
-                <button id="listen-again-btn" class="review-btn play-btn" style="background-color: #F0F2F5; color: #4A90E2; min-height: 100px; font-size: 24px; margin: 0;">Listen Again 🔁</button>
-                <button id="listen-done-btn" class="review-btn send-btn" style="min-height: 100px; font-size: 32px; margin: 0; width: auto;">Done ✅</button>
+            <div id="listen-post-actions" class="hidden" style="padding: 16px; box-sizing: border-box;">
+                <button id="listen-reply-btn" class="review-btn play-btn">Reply 🎤</button>
+                <button id="listen-star-btn" class="review-btn" style="background-color: #FFF9C4; color: #F57F17;">Star ⭐</button>
+                <button id="listen-again-btn" class="review-btn play-btn" style="background-color: #F0F2F5; color: #4A90E2;">Listen Again 🔁</button>
+                <button id="listen-done-btn" class="review-btn send-btn">Done ✅</button>
             </div>
         </div>
         <button class="nav-btn cancel-btn" id="listen-cancel-btn">Back 🔙</button>

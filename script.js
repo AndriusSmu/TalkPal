@@ -156,6 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const saveFavorites = () => localStorage.setItem('talkpal_favorites', JSON.stringify(favorites));
 
+    let hiddenMessages = JSON.parse(localStorage.getItem('talkpal_hidden') || '[]');
+    const saveHiddenMessages = () => localStorage.setItem('talkpal_hidden', JSON.stringify(hiddenMessages));
+
     const startCaregiverTimer = () => {
         caregiverTimer = setTimeout(() => {
             const pin = prompt("Enter Caregiver PIN:");
@@ -268,6 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
             playCancelSound(); 
             triggerVibrate([50, 100, 50]);
             
+            if (!hiddenMessages.find(h => h.contact === currentListenContact)) {
+                hiddenMessages.push({ contact: currentListenContact, emoji: currentListenEmojiId });
+                saveHiddenMessages();
+                renderHiddenMessages();
+            }
+
             reportedMessages.push({ contact: currentListenContact, time: Date.now() });
 
             document.querySelectorAll(`.listen-card-btn[data-contact="${currentListenContact}"]`).forEach(node => node.remove());
@@ -370,6 +379,58 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     renderFavorites(); // Init on Boot
+
+    const renderHiddenMessages = () => {
+        const hiddenGrid = document.getElementById('hidden-grid');
+        if (!hiddenGrid) return;
+        hiddenGrid.innerHTML = '';
+        
+        hiddenMessages.forEach(msg => {
+            document.querySelectorAll(`#listen-received-grid .listen-card-btn[data-contact="${msg.contact}"]`).forEach(node => node.remove());
+
+            const btn = document.createElement('div');
+            btn.className = 'listen-card-btn';
+            btn.style.opacity = '0.6';
+            btn.innerHTML = `<div class="contact-emoji">${msg.emoji}</div><span style="font-size: 24px;">${msg.contact}</span><button class="unhide-btn" style="margin-top: 10px; width: 100%;">Unhide</button>`;
+            
+            btn.querySelector('.unhide-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerVibrate(50);
+                hiddenMessages = hiddenMessages.filter(h => h.contact !== msg.contact);
+                saveHiddenMessages();
+                renderHiddenMessages();
+                
+                const recGrid = document.getElementById('listen-received-grid');
+                if (recGrid) {
+                    const newBtn = document.createElement('button');
+                    newBtn.className = 'listen-card-btn';
+                    newBtn.setAttribute('data-contact', msg.contact);
+                    newBtn.setAttribute('data-emoji', msg.emoji);
+                    newBtn.innerHTML = `<div class="contact-emoji">${msg.emoji}</div><span>Listen ${msg.contact}</span>`;
+                    
+                    newBtn.addEventListener('click', () => {
+                        triggerVibrate(50);
+                        currentListenContact = newBtn.getAttribute('data-contact');
+                        currentListenEmojiId = newBtn.getAttribute('data-emoji');
+                        
+                        listenHeader.textContent = "Listen 🎧";
+                        listenPlayBtn.classList.remove('hidden');
+                        listenPostActions.classList.add('hidden');
+                        listenPostActions.style.display = 'none';
+
+                        listenEmoji.textContent = currentListenEmojiId;
+                        listenEmoji.style.display = 'flex';
+                        
+                        showScreen(screenListen);
+                    });
+                    
+                    recGrid.appendChild(newBtn);
+                }
+            });
+            hiddenGrid.appendChild(btn);
+        });
+    };
+    renderHiddenMessages();
 
     listenCardBtns.forEach(btn => {
         btn.addEventListener('click', () => {
