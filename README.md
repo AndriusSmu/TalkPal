@@ -28,12 +28,3 @@ Action-Reaction Loop: Visual feedback (Confetti/Glows) occurs within 100ms of us
 Zero-Scroll Interface: The layout uses viewport units (vh) to ensure all interactive elements fit on a single "pane of glass."
 
 Simplified Navigation: Large circular avatars and color-coded paths reduce cognitive load.
-
-🚀 Installation & Deployment
-Clone the repository:
-
-Bash
-git clone https://github.com/YOUR_USERNAME/TalkPal.git
-Open index.html in any modern web browser.
-
-For the best experience, host via GitHub Pages to use it as a Progressive Web App (PWA) on a tablet or whiteboard.
