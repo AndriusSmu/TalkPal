@@ -1,4 +1,3 @@
-🎙️ TalkPal
 TalkPal is an accessible, touch-first communication tool designed for large-scale interactive whiteboards in day care environments. It simplifies voice messaging for users with cognitive or motor challenges, focusing on concrete visual feedback and a low-stress interface.
 
 🌟 Key Features
